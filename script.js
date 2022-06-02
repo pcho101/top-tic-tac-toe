@@ -14,8 +14,16 @@ const gameBoard = (() => {
             board[i] = undefined;
         }
     };
+    const isFull = () => {
+        for (let i = 0; i < 9; i++) {
+            if (board[i] == undefined) {
+                return false;
+            }
+        }
+        return true;
+    };
     return {
-        setMarker, getMarker, resetBoard, 
+        setMarker, getMarker, resetBoard, isFull,
     };
 })();
 
@@ -53,12 +61,31 @@ const gameController = (() => {
         grids[i].addEventListener('click', placeMarker);
     }
     function placeMarker(e) {
-        if (gameBoard.getMarker(e.target.id) == undefined) {
+        if (gameBoard.getMarker(e.target.id) == undefined && !gameOver) {
             gameBoard.setMarker(e.target.id, currentPlayer.marker);
             e.target.textContent = gameBoard.getMarker(e.target.id);
+            checkWinner(currentPlayer.marker);
             switchTurns();
         }
     }
+    let gameOver = false;
+    const checkWinner = (marker) => {
+        if (gameBoard.getMarker(0) == marker && gameBoard.getMarker(1) == marker && gameBoard.getMarker(2) == marker ||
+            gameBoard.getMarker(3) == marker && gameBoard.getMarker(4) == marker && gameBoard.getMarker(5) == marker ||
+            gameBoard.getMarker(6) == marker && gameBoard.getMarker(7) == marker && gameBoard.getMarker(8) == marker ||
+            gameBoard.getMarker(0) == marker && gameBoard.getMarker(3) == marker && gameBoard.getMarker(6) == marker ||
+            gameBoard.getMarker(1) == marker && gameBoard.getMarker(4) == marker && gameBoard.getMarker(7) == marker ||
+            gameBoard.getMarker(2) == marker && gameBoard.getMarker(5) == marker && gameBoard.getMarker(8) == marker ||
+            gameBoard.getMarker(0) == marker && gameBoard.getMarker(4) == marker && gameBoard.getMarker(8) == marker ||
+            gameBoard.getMarker(2) == marker && gameBoard.getMarker(4) == marker && gameBoard.getMarker(6) == marker) {
+            console.log('Winner!');
+            gameOver = true;
+        }
+        if (gameBoard.isFull()) {
+            console.log('Tie!');
+            gameOver = true;
+        }
+    };
     const switchTurns = () => {
         console.log(`Previous player ${currentPlayer.name} with ${currentPlayer.marker}.`);
         currentPlayer = currentPlayer == player1 ? player2 : player1;
