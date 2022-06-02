@@ -86,6 +86,32 @@ const gameController = (() => {
             gameOver = true;
         }
     };
+    const changeBtn1 = document.querySelector('.change-name-1');
+    const changeBtn2 = document.querySelector('.change-name-2');
+    const playerName1 = document.querySelector('.player-1-name');
+    const playerName2 = document.querySelector('.player-2-name');
+    changeBtn1.addEventListener('click', changeName);
+    changeBtn2.addEventListener('click', changeName);
+    function changeName(e) {
+        if (e.target.classList == 'change-name-1') {
+            const newName = prompt('Enter new name for p1', 'p1');
+            player1.name = newName;
+            playerName1.textContent = newName;
+        }
+        else if (e.target.classList == 'change-name-2') {
+            const newName = prompt('Enter new name for p2', 'p1')
+            player2.name = newName;
+            playerName2.textContent = newName;
+        }
+    }
+    const resetBtn = document.querySelector('.game-reset');
+    resetBtn.addEventListener('click', () => {
+        gameBoard.resetBoard();
+        gameOver = false;
+        for (let i = 0; i < grids.length; i++) {
+            grids[i].textContent = undefined;
+        }
+    });
     const switchTurns = () => {
         console.log(`Previous player ${currentPlayer.name} with ${currentPlayer.marker}.`);
         currentPlayer = currentPlayer == player1 ? player2 : player1;
