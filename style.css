@@ -1,10 +1,143 @@
+body {
+    font: 700 1rem/1 'Fira Mono', monospace;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px;
+    gap: 12px;
+}
+
+button {
+    text-transform: uppercase;
+}
+
+header>h1 {
+    font-size: 2.4rem;
+    text-shadow: 4px 4px 2px grey;
+}
+
+.game {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+}
+
 .game-grid {
     display: grid;
     grid-template-rows: repeat(3, 1fr);
     grid-template-columns: repeat(3, 1fr);
+    height: 300px;
+    width: 300px;
+    gap: 5px;
+    background-color: darkblue;
+    border: 6px dashed black;
+    border-radius: 5px;
+    box-shadow: 8px 8px 6px grey;
+    order: 2;
 }
 
 .grid {
     height: 50px;
-    border: 2px solid red;
+    /* border: 2px solid red; */
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    background-color: lightslategray;
+    cursor: pointer;
+}
+
+.grid:hover {
+    opacity: 80%;
+}
+
+.game-reset {
+    width: 160px;
+    height: 40px;
+    font-size: 1rem;
+    border: 2px dotted grey;
+    cursor: pointer;
+    color: white;
+    background-color: rgb(42, 42, 141);
+}
+
+.game-reset:hover {
+    opacity: 80%;
+}
+
+.game-reset:active {
+    background-color: rgb(54, 54, 143);
+}
+
+.display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 40px;
+    border: 2px dotted grey;
+    border-radius: 8px;
+    box-shadow: 6px 6px 2px lightgray;
+    min-width: 500px;
+    min-height: 32px;
+}
+
+.player-1,
+.player-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border: 2px dotted grey;
+    border-radius: 8px;
+    box-shadow: 6px 6px 2px lightgray;
+    white-space: nowrap;
+}
+
+.player-1 {
+    order: 1;
+}
+
+.player-2 {
+    order: 3;
+}
+
+p {
+    margin: 0px;
+    padding: 5px;
+}
+
+.name-container {
+    display: flex;
+    gap: 10px;
+}
+
+.player-1-name,
+.player-2-name {
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+.change-name-1,
+.change-name-2 {
+    border: none;
+    cursor: pointer;
+    background-color: white;
+    padding: 1px;
+    align-self: center;
+}
+
+.change-name-1:hover,
+.change-name-2:hover {
+    border: none;
+    background-color: grey;
+}
+
+.player-1-marker,
+.player-2-marker {
+    font-size: 3rem;
+    font-weight: 900;
+    text-shadow: 2px 2px 1px grey;
 }
