@@ -39,24 +39,25 @@ header>h1 {
 
 .grid {
     height: 50px;
-    /* border: 2px solid red; */
     height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 4rem;
     background-color: lightslategray;
-    cursor: pointer;
+    cursor: not-allowed;
 }
 
-.grid:hover {
+.grid.empty:hover {
     opacity: 80%;
+    cursor: pointer;
 }
 
 .game-reset {
     width: 160px;
     height: 40px;
     font-size: 1rem;
+    font-weight: 700;
     border: 2px dotted grey;
     cursor: pointer;
     color: white;
@@ -83,6 +84,10 @@ header>h1 {
     min-height: 32px;
 }
 
+.game-display>span {
+    color: rgb(42, 42, 141);
+}
+
 .player-1,
 .player-2 {
     display: flex;
@@ -104,6 +109,10 @@ header>h1 {
     order: 3;
 }
 
+h1 {
+    text-shadow: 2px 2px 1px grey;
+}
+
 p {
     margin: 0px;
     padding: 5px;
@@ -118,13 +127,14 @@ p {
 .player-2-name {
     font-size: 2rem;
     font-weight: 900;
+    text-shadow: 1px 1px 0.5px grey;
 }
 
 .change-name-1,
 .change-name-2 {
     border: none;
     cursor: pointer;
-    background-color: white;
+    background-color: inherit;
     padding: 1px;
     align-self: center;
 }
@@ -141,3 +151,25 @@ p {
     font-weight: 900;
     text-shadow: 2px 2px 1px grey;
 }
+
+.cur-turn {
+    color: rgb(42, 42, 141);
+    border-color: black;
+}
+
+.winner {
+    background-color: #cfffcf;
+    color: #005600;
+}
+
+.loser {
+    background-color: #ffdada;
+    color: #a90000;
+}
+
+.name-label,
+.marker-label {
+    text-decoration-line: underline;
+    margin-top: 8px;
+}
+

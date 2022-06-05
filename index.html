@@ -13,38 +13,38 @@
     </header>
     <div class="game">
         <div class="game-grid">
-            <div class="grid" id="0"></div>
-            <div class="grid" id="1"></div>
-            <div class="grid" id="2"></div>
-            <div class="grid" id="3"></div>
-            <div class="grid" id="4"></div>
-            <div class="grid" id="5"></div>
-            <div class="grid" id="6"></div>
-            <div class="grid" id="7"></div>
-            <div class="grid" id="8"></div>
+            <div class="grid empty" id="0"></div>
+            <div class="grid empty" id="1"></div>
+            <div class="grid empty" id="2"></div>
+            <div class="grid empty" id="3"></div>
+            <div class="grid empty" id="4"></div>
+            <div class="grid empty" id="5"></div>
+            <div class="grid empty" id="6"></div>
+            <div class="grid empty" id="7"></div>
+            <div class="grid empty" id="8"></div>
         </div>
         <div class="player-1">
             <h1>Player 1</h1>
-            <p>Name</p>
+            <p class="name-label">Name</p>
             <div class="name-container">
                 <p class="player-1-name">P1 Name</p>
                 <button class="change-name-1">
                     <img src="icons/edit.svg" alt="edit-name">
                 </button>
             </div>
-            <p>Marker</p>
+            <p class="marker-label">Marker</p>
             <p class="player-1-marker">x</p>
         </div>
         <div class="player-2">
             <h1>Player 2</h1>
-            <p>Name</p>
+            <p class="name-label">Name</p>
             <div class="name-container">
                 <p class="player-2-name">P2 Name</p>
                 <button class="change-name-2">
                     <img src="icons/edit.svg" alt="edit-name">
                 </button>
             </div>
-            <p>Marker</p>
+            <p class="marker-label">Marker</p>
             <p class="player-2-marker">o</p>
         </div>  
     </div>
@@ -54,8 +54,8 @@
         <input type="checkbox" name="robot" id="robot">
     </div>
     <div class="display">
-        <div class="game-display">Click Start Game to begin</div>
-        <div class="turn-display"></div>
+        <div class="game-display">Click <span>Start Game</span> to begin</div>
+        <div class="turn-display">...</div>
     </div>
     <script src="script.js"></script>
 </body>

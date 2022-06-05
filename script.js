@@ -46,6 +46,8 @@ const displayController = (() => {
     const gameDisplay = document.querySelector('.game-display');
     const turnDisplay = document.querySelector('.turn-display');
     const checkBox = document.querySelector('#robot');
+    const playerProfile1 = document.querySelector('.player-1');
+    const playerProfile2 = document.querySelector('.player-2');
 
     for (let i = 0; i < grids.length; i++) {
         grids[i].addEventListener('click', placeMarker);
@@ -63,14 +65,18 @@ const displayController = (() => {
     const playerMove = (e) => {
         gameBoard.setMarker(e.target.id, gameController.getCurrentPlayer().marker);
         e.target.textContent = gameBoard.getMarker(e.target.id);
+        e.target.classList.remove('empty');
     }
     const computerMove = () => {
         let move = gameController.findBestMove();
         gameBoard.setMarker(move, gameController.getCurrentPlayer().marker);
         grids[move].textContent = gameBoard.getMarker(move);
+        grids[move].classList.remove('empty');
     }
     const nextTurn = () => {
         gameController.checkWinner();
+        playerProfile1.classList.toggle('cur-turn');
+        playerProfile2.classList.toggle('cur-turn');
         if (gameController.isGameOver()) {
             displayWinner(gameController.getWinner());
         }
@@ -80,12 +86,31 @@ const displayController = (() => {
         }
     }
     const displayWinner = (winner) => {
-        gameDisplay.textContent = 'Game Over! Click Reset Game to try again'
+        gameDisplay.innerHTML = 'Game Over! Click <span>Reset Game</span> to try again'
         if (winner == undefined) {
             turnDisplay.textContent = 'Tie Game';
+            playerProfile1.classList.add('cur-turn');
+            playerProfile2.classList.add('cur-turn');
         }
         else {
             turnDisplay.textContent = `${winner.name} is the winner with the (${winner.marker}) pieces`;
+            for (let i = 0; i < grids.length; i++) {
+                if(gameBoard.getMarker(i) == winner.marker) {
+                    grids[i].classList.add('winner');
+                }
+                else if(gameBoard.getMarker(i) != winner.marker && gameBoard.getMarker(i) != undefined) {
+                    grids[i].classList.add('loser');
+                }
+            }
+            if (winner.marker == 'x') {
+                playerProfile1.classList.add('winner');
+                playerProfile2.classList.add('loser');
+                
+            }
+            else {
+                playerProfile1.classList.add('loser');
+                playerProfile2.classList.add('winner');
+            }
         }
     };
 
@@ -104,16 +129,31 @@ const displayController = (() => {
         gameController.resetGame();
         for (let i = 0; i < grids.length; i++) {
             grids[i].textContent = undefined;
+            grids[i].classList.remove('winner');
+            grids[i].classList.remove('loser');
+            grids[i].classList.add('empty');
         }
         resetBtn.textContent = 'Reset Game';
+        playerProfile1.classList.remove('winner');
+        playerProfile2.classList.remove('winner');
+        playerProfile1.classList.remove('loser');
+        playerProfile2.classList.remove('loser');
+        playerProfile1.classList.remove('cur-turn');
+        playerProfile2.classList.remove('cur-turn');
+        if (gameController.getCurrentPlayer().marker == 'x') {
+            playerProfile1.classList.add('cur-turn');
+        }
+        else {
+            playerProfile2.classList.add('cur-turn');
+        }
         gameDisplay.textContent = 'Tic Tac Toe Match';
         turnDisplay.textContent = `It is ${gameController.getCurrentPlayer().name}'s move (${gameController.getCurrentPlayer().marker}) pieces`;
     });
 })();
 
 const gameController = (() => {
-    let player1 = Player('p1', 'x');
-    let player2 = Player('p2', 'o');
+    let player1 = Player('P1 Name', 'x');
+    let player2 = Player('P2 Name', 'o');
     let currentPlayer = Math.floor(Math.random()*2) ? player1 : player2;
     let gameOver = true;
     let winner = undefined;
