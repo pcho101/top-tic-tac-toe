@@ -48,6 +48,9 @@ const displayController = (() => {
     const checkBox = document.querySelector('#robot');
     const playerProfile1 = document.querySelector('.player-1');
     const playerProfile2 = document.querySelector('.player-2');
+    const modal = document.querySelector('.modal');
+    const nameField = document.querySelector('.name-textbox');
+    let editPlayer = 1;
 
     for (let i = 0; i < grids.length; i++) {
         grids[i].addEventListener('click', placeMarker);
@@ -114,15 +117,40 @@ const displayController = (() => {
         }
     };
 
+    function openModal() {
+        modal.style.display = 'block';
+        nameField.value = editPlayer == 1 ? playerName1.textContent : playerName2.textContent;
+        nameField.select();
+    }
+    
+    function closeModal() {
+        modal.style.display = 'none';
+        if (nameField.value == '') {
+            return;
+        }
+        if (editPlayer == 1) {
+            gameController.setPlayerName1(nameField.value);
+            playerName1.textContent = nameField.value;
+        }
+        else {
+            gameController.setPlayerName2(nameField.value);
+            playerName2.textContent = nameField.value;
+        }
+    }
+    
+    window.addEventListener('click', function(e) {
+        if (e.target == modal) {
+            closeModal();
+        }
+    });
+    
     changeBtn1.addEventListener('click', () => {
-        const newName = prompt('Enter new name for p1', 'p1');
-        gameController.setPlayerName1(newName);
-        playerName1.textContent = newName;
+        editPlayer = 1;
+        openModal();
     });
     changeBtn2.addEventListener('click', () => {
-        const newName = prompt('Enter new name for p2', 'p1')
-        gameController.setPlayerName2(newName);
-        playerName2.textContent = newName;
+        editPlayer = 2;
+        openModal();
     });
 
     resetBtn.addEventListener('click', () => {
@@ -218,11 +246,11 @@ const gameController = (() => {
     const minimax = (depth, isMax) => {
         let best;
         let score = eval();
-        if (score == 10) {
-            return score;
+        if (score >= 7) {
+            return score - depth;
         }
-        if (score == -10) {
-            return score;
+        if (score <= -7) {
+            return score + depth;
         }
         if (gameBoard.isFull()) {
             return 0;

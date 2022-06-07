@@ -4,4 +4,4 @@
 
 [Live Demo Link to be added later]()
 
-Small library app using JavaScript objects.
+Tic tac toe game using JavaScript factory functions and module patterns.
